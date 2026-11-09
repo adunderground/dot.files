@@ -11,16 +11,12 @@ This repo is **public**. Never commit secrets, tokens, or WorkBoard-internal fil
 
 ## 0. Before the wipe (old laptop, Arkady runs this)
 
-1. Push or stash-to-branch every repo under `~/adev` — the wipe destroys stashes and local
-   branches. List what's at risk:
-   ```bash
-   cd ~/adev; for d in */; do [ -e "$d/.git" ] || continue; s=$(git -C "$d" stash list | wc -l); u=$(git -C "$d" log --branches --not --remotes --oneline | wc -l); c=$(git -C "$d" status --porcelain | wc -l); [ $((s+u+c)) -gt 0 ] && echo "$d stashes=$s unpushed_commits=$u dirty=$c"; done
-   ```
-   To keep a stash: `git stash branch wip/<name> stash@{N}` then push.
-2. `./backup.sh` → writes `OneDrive-WorkBoard/mac-backup/private.tgz` and `~/.secrets`.
-3. Raycast → Settings → Advanced → **Export** → save into the same OneDrive folder.
-4. Commit and push this repo.
-5. Confirm OneDrive shows `private.tgz` synced (cloud icon, not "uploading").
+Unpushed branches and stashes are intentionally abandoned — don't try to save them.
+
+1. `./backup.sh` → writes `OneDrive-WorkBoard/mac-backup/private.tgz` and `~/.secrets`.
+2. Raycast → Settings → Advanced → **Export** → save into the same OneDrive folder.
+3. Commit and push this repo.
+4. Confirm OneDrive shows `private.tgz` synced (cloud icon, not "uploading").
 
 ---
 
@@ -63,6 +59,9 @@ tar -xzf ~/Library/CloudStorage/OneDrive-WorkBoard/mac-backup/private.tgz -C ~
 chmod 600 ~/.secrets; chmod 700 ~/.ssh; chmod 600 ~/.ssh/id_rsa
 ```
 
+Secrets (JWT keys, tokens) also exist in Arkady's own encrypted cloud file. If
+`private.tgz` is missing or stale, ask him for the `~/.secrets` contents from there.
+
 This restores `~/.secrets`, `~/.ssh`, `~/.npmrc`, `~/.claude/{CLAUDE.md,settings.json,
 commands,skills,bin,projects/*/memory}`, `~/.agents`, herdr/iTerm hook config, and
 `~/adev/.foreman` plus loose files in `~/adev`. Then:
@@ -82,8 +81,6 @@ Quit each app first, then:
 ```bash
 cd ~/adev/dot.files/macos/prefs
 for f in *.plist; do defaults import "${f%.plist}" "$f"; done
-mkdir -p ~/Library/Application\ Support/com.mitchellh.ghostty
-cp ../ghostty.config ~/Library/Application\ Support/com.mitchellh.ghostty/config.ghostty
 ```
 
 Covers Rectangle, Stats, Itsycal, AltTab, Hidden Bar. Then ask Arkady to:
@@ -101,7 +98,8 @@ curl https://cursor.com/install -fsS | bash          # cursor-agent
 gh auth login
 ```
 
-- **twg** (Jira/Confluence CLI): reinstall per its internal instructions into `~/.local/bin/twg`, then `twg` login. Ask Arkady for the source.
+- **twg** (Jira/Confluence CLI): install per https://developer.atlassian.com/cloud/twg-cli/
+  into `~/.local/bin/twg`, then log in (Arkady does the auth step).
 - **codex**: install from openai.com/codex if still used.
 - Claude plugins: open `claude`, run `/plugin` — marketplaces in the restored
   `settings.json` re-download on first launch. `wobo-marketplace` points at

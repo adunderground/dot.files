@@ -33,7 +33,6 @@ cask "alt-tab"
 cask "hiddenbar"
 
 # terminals / editors
-cask "ghostty"
 cask "iterm2"
 cask "visual-studio-code"
 cask "cursor"
