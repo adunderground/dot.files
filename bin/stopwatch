@@ -1,0 +1,76 @@
+#!/usr/bin/env python3
+"""Big-font terminal stopwatch. -m shows hundredths.
+space=pause/resume, r=reset, q/esc=quit.
+Font is the ANSI Shadow set from github.com/antonmedv/countdown (MIT)."""
+import select, shutil, sys, termios, time, tty
+
+FONT = {
+    ':': ["   ", "██╗", "╚═╝", "██╗", "╚═╝", "   "],
+    '.': ["   ", "   ", "   ", "   ", "██╗", "╚═╝"],
+    '0': [" ██████╗ ", "██╔═████╗", "██║██╔██║", "████╔╝██║", "╚██████╔╝", " ╚═════╝ "],
+    '1': [" ██╗", "███║", "╚██║", " ██║", " ██║", " ╚═╝"],
+    '2': ["██████╗ ", "╚════██╗", " █████╔╝", "██╔═══╝ ", "███████╗", "╚══════╝"],
+    '3': ["██████╗ ", "╚════██╗", " █████╔╝", " ╚═══██╗", "██████╔╝", "╚═════╝ "],
+    '4': ["██╗  ██╗", "██║  ██║", "███████║", "╚════██║", "     ██║", "     ╚═╝"],
+    '5': ["███████╗", "██╔════╝", "███████╗", "╚════██║", "███████║", "╚══════╝"],
+    '6': [" ██████╗ ", "██╔════╝ ", "███████╗ ", "██╔═══██╗", "╚██████╔╝", " ╚═════╝ "],
+    '7': ["███████╗", "╚════██║", "    ██╔╝", "   ██╔╝ ", "   ██║  ", "   ╚═╝  "],
+    '8': [" █████╗ ", "██╔══██╗", "╚█████╔╝", "██╔══██╗", "╚█████╔╝", " ╚════╝ "],
+    '9': [" █████╗ ", "██╔══██╗", "╚██████║", " ╚═══██║", " █████╔╝", " ╚════╝ "],
+}
+PAUSED = ["█▀▄ ▄▀▄ █ █ ▄▀▀ ██▀ █▀▄",
+          "█▀  █▀█ ▀▄█ ▄██ █▄▄ █▄▀"]
+
+def render(text):
+    return [''.join(FONT[c][r] for c in text) for r in range(6)]
+
+def fmt(elapsed, sub=False):
+    h, rem = divmod(int(elapsed), 3600)
+    m, s = divmod(rem, 60)
+    out = f'{h}:{m:02d}:{s:02d}' if h else f'{m:02d}:{s:02d}'
+    return out + f'.{int(elapsed * 100) % 100:02d}' if sub else out
+
+def frame(lines, extra):
+    w, h = shutil.get_terminal_size()
+    body = lines + [''] + extra
+    top = max(0, (h - len(body)) // 2)
+    out = ['\033[H'] + [''] * top
+    out += [' ' * max(0, (w - len(l)) // 2) + l + '\033[K' for l in body]
+    return '\n'.join(out) + '\033[J'
+
+def main(sub):
+    fd = sys.stdin.fileno()
+    old = termios.tcgetattr(fd)
+    start, frozen = time.monotonic(), None
+    sys.stdout.write('\033[?25l\033[2J')
+    try:
+        tty.setcbreak(fd)
+        while True:
+            if select.select([sys.stdin], [], [], 0.05)[0]:
+                k = sys.stdin.read(1)
+                if k in ('q', '\x1b', '\x03'):
+                    break
+                if k == ' ':
+                    if frozen is None:
+                        frozen = time.monotonic() - start
+                    else:
+                        start, frozen = time.monotonic() - frozen, None
+                elif k == 'r':
+                    start, frozen = time.monotonic(), (0.0 if frozen is not None else None)
+            elapsed = frozen if frozen is not None else time.monotonic() - start
+            extra = PAUSED if frozen is not None else ['']
+            sys.stdout.write(frame(render(fmt(elapsed, sub)), extra))
+            sys.stdout.flush()
+    finally:
+        termios.tcsetattr(fd, termios.TCSADRAIN, old)
+        sys.stdout.write('\033[?25h\033[2J\033[H')
+
+if __name__ == '__main__':
+    if '--test' in sys.argv:
+        assert fmt(0) == '00:00' and fmt(65.5) == '01:05' and fmt(3661) == '1:01:01'
+        assert fmt(65.5, True) == '01:05.50' and fmt(3661, True) == '1:01:01.00'
+        r = render('00:00.00')
+        assert len(r) == 6 and len(set(map(len, r))) == 1
+        print('ok')
+    else:
+        main('-m' in sys.argv)

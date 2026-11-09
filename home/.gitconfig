@@ -1,0 +1,10 @@
+[filter "lfs"]
+	smudge = git-lfs smudge -- %f
+	process = git-lfs filter-process
+	required = true
+	clean = git-lfs clean -- %f
+[user]
+	name = Arkady Dolina
+	email = arkady.dolina@workboard.com
+[url "https://github.com/"]
+	insteadOf = git@github.com:

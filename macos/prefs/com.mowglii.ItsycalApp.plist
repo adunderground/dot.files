@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>HideIcon</key>
+	<false/>
+	<key>MenuBarIconType</key>
+	<integer>1</integer>
+	<key>NSStatusItem Preferred Position ItsycalStatusItem</key>
+	<real>327</real>
+	<key>PinItsycal</key>
+	<false/>
+	<key>SUHasLaunchedBefore</key>
+	<true/>
+	<key>SULastCheckTime</key>
+	<date>2026-11-02T18:53:47Z</date>
+	<key>ShowDayOfWeekInIcon</key>
+	<true/>
+	<key>ShowDaysWithNoEventsInAgenda</key>
+	<false/>
+	<key>ShowEventDays</key>
+	<integer>7</integer>
+	<key>ShowMonthInIcon</key>
+	<true/>
+	<key>ShowWeeks</key>
+	<true/>
+	<key>SizePreference</key>
+	<real>1</real>
+	<key>WeekStartDOW</key>
+	<integer>1</integer>
+</dict>
+</plist>

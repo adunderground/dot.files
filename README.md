@@ -1,2 +1,15 @@
 # dot.files
- here, you might need this 
+
+Mac setup for a fresh machine. Hand **[SETUP.md](SETUP.md)** to an agent.
+
+| Path | What |
+|---|---|
+| `SETUP.md` | step-by-step rebuild guide (agent-readable) |
+| `backup.sh` | run before a wipe: secrets + private config → OneDrive |
+| `Brewfile` | CLI tools and apps (`brew bundle`) |
+| `home/` | `.bash_profile`, `.profile`, `.gitconfig` |
+| `bin/` | personal scripts → `~/.local/bin` |
+| `macos/` | app prefs (Rectangle, Stats, Itsycal, AltTab, Hidden Bar) + Ghostty config |
+| `ad-tone/` | writing-voice guide |
+
+Secrets are never committed; `.bash_profile` sources `~/.secrets`.

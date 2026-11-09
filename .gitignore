@@ -1,0 +1,4 @@
+.secrets
+*.tgz
+*.rayconfig
+.DS_Store
