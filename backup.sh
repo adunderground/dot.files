@@ -32,4 +32,5 @@ tar -czf "$DEST/claude-history.tgz" \
   2> >(grep -v 'Removing leading' >&2) || true
 
 echo "Wrote $DEST/claude-history.tgz ($(du -h "$DEST/claude-history.tgz" | cut -f1))"
+"$(dirname "$0")/backup-downloads.sh"
 echo "Now export Raycast settings by hand: Raycast > Settings > Advanced > Export -> $DEST/"

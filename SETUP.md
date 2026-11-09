@@ -14,7 +14,7 @@ This repo is **public**. Never commit secrets, tokens, or WorkBoard-internal fil
 Unpushed branches and stashes are intentionally abandoned — don't try to save them.
 
 1. Quit the Claude desktop app, then from Terminal: `./backup.sh` → writes
-   `OneDrive-WorkBoard/mac-backup/{private,claude-history}.tgz` and `~/.secrets`.
+   `OneDrive-WorkBoard/mac-backup/{private,claude-history}.tgz`, `mac-backup/Downloads/` and `~/.secrets`.
 2. Raycast → Settings → Advanced → **Export** → save into the same OneDrive folder.
 3. Commit and push this repo.
 4. Confirm OneDrive shows both `.tgz` files synced (cloud icon, not "uploading").
