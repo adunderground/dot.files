@@ -16,7 +16,8 @@ Unpushed branches and stashes are intentionally abandoned — don't try to save 
 1. Quit the Claude desktop app, then from Terminal: `./backup.sh` → writes
    `OneDrive-WorkBoard/mac-backup/{private,claude-history}.tgz`, `mac-backup/Downloads/` and `~/.secrets`.
 2. Raycast → Settings → Advanced → **Export** → save into the same OneDrive folder.
-3. Commit and push this repo.
+3. `./export-settings.sh` → refreshes app settings in this repo; review `git diff`,
+   then commit and push.
 4. Confirm OneDrive shows both `.tgz` files synced (cloud icon, not "uploading").
 
 ---
@@ -99,17 +100,49 @@ Quit each app first, **including iTerm2** — it rewrites its prefs on quit, so 
 from Terminal.app, not iTerm:
 
 ```bash
-cd ~/adev/dot.files/macos/prefs
-for f in *.plist; do defaults import "${f%.plist}" "$f"; done
+cd ~/adev/dot.files
+for f in macos/prefs/*.plist; do n=$(basename "$f" .plist); defaults import "$n" "$f"; done
+mkdir -p ~/Library/Application\ Support/LidRun && cp macos/lidrun/rules.json ~/Library/Application\ Support/LidRun/
+./macos/system.sh     # Dock, Finder, dark mode, screenshots, menu-bar clock
 ```
 
-Covers iTerm2 (profile, Anonymous Pro 16 font, colors, window size, keys), Rectangle,
-Stats, Itsycal, AltTab, Hidden Bar. The font comes from the Brewfile — if iTerm shows
-Monaco, `brew install --cask font-anonymous-pro` and relaunch iTerm. Then ask Arkady to:
+Saved app settings:
+
+| App | What comes back | Source |
+|---|---|---|
+| iTerm2 | profile, Anonymous Pro 16, colors, window size, keys | `macos/prefs` |
+| Rectangle | all shortcuts, launch at login | `macos/prefs` |
+| Stats | enabled modules, widgets, menu-bar order | `macos/prefs` |
+| Itsycal | icon style, week start, agenda days | `macos/prefs` |
+| AltTab, Hidden Bar | shortcuts, appearance | `macos/prefs` (AltTab license: `private.tgz`) |
+| LidRun | automation rules | `macos/lidrun` |
+| macOS | Dock, Finder, hot corner, screenshots, clock | `macos/system.sh` |
+| VS Code, Cursor | settings, keybindings, snippets, extensions | `editors/` (below) |
+| DBeaver, OBS, gh | connections + saved credentials, scenes, gh config | `private.tgz` (step 4) |
+| Raycast | everything | `.rayconfig` in OneDrive (manual import) |
+
+Editors (after the app is installed and opened once):
+
+```bash
+cd ~/adev/dot.files/editors
+cp Code/settings.json ~/Library/Application\ Support/Code/User/
+xargs -n1 code --install-extension < Code/extensions.txt
+cp Cursor/settings.json ~/Library/Application\ Support/Cursor/User/
+```
+
+The Anonymous Pro font comes from the Brewfile; if iTerm shows Monaco,
+`brew install --cask font-anonymous-pro` and relaunch iTerm.
+
+Not saved (re-sync by signing in): Chrome, Firefox, Slack, Teams, Outlook, Spotify,
+Zoom, Postman, Obsidian (vault is the `AD_obsidian` repo, config in its `.obsidian/`).
+Signal Desktop has to be re-linked from the phone; choose to transfer message history.
+IntelliJ and pgAdmin/MySQL Workbench had no custom setup worth saving.
+
+Then ask Arkady to:
 - Raycast: Settings → Advanced → **Import** the `.rayconfig` from OneDrive.
-- Grant Accessibility / Screen Recording to Rectangle, Raycast, AltTab, Stats
+- Grant Accessibility / Screen Recording to Rectangle, Raycast, AltTab, Stats, LidRun
   (System Settings → Privacy & Security). You cannot click these for him.
-- Set each menu-bar app to launch at login.
+- Re-add Dock apps (order isn't restored) and re-enter the iTerm AI API key if used.
 
 ## 6. CLIs and agent tooling
 

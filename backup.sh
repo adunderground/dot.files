@@ -15,7 +15,10 @@ cd ~
 tar -czf "$DEST/private.tgz" \
   .secrets .ssh .npmrc \
   .claude/CLAUDE.md .claude/settings.json .claude/commands .claude/skills .claude/bin \
-  .agents .config/herdr/config.toml .config/iterm2/cc-status \
+  .agents .config/herdr/config.toml .config/iterm2/cc-status .config/gh \
+  Library/DBeaverData/workspace6/General/.dbeaver \
+  "Library/Application Support/obs-studio/basic" "Library/Application Support/obs-studio/global.ini" \
+  Library/Preferences/com.lwouis.alt-tab-macos.license.plist \
   adev/.foreman adev/skills-lock.json adev/bash_profile.sh \
   adev/Tiltfile adev/tilt-agents-runtime.override.yaml adev/vnextwobo-mongo.override.yml \
   adev/Coreai4387ResetCommand.php adev/pros-cons.txt adev/docs \

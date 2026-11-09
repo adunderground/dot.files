@@ -1,0 +1,25 @@
+{
+    "workbench.colorTheme": "Visual Studio Dark",
+    "terminal.external.osxExec": "iTerm.app",
+    "terminal.integrated.agentHostProfile.osx": "",
+    "editor.acceptSuggestionOnEnter": "off",
+    "chat.viewSessions.orientation": "stacked",
+    "[typescript]": {
+        "editor.defaultFormatter": "rvest.vs-code-prettier-eslint"
+    },
+    "[typescriptreact]": {
+        "editor.defaultFormatter": "rvest.vs-code-prettier-eslint"
+    },
+    "security.promptForLocalFileProtocolHandling": false,
+    "[jsonc]": {
+        "editor.defaultFormatter": "rvest.vs-code-prettier-eslint"
+    },
+    "[json]": {
+        "editor.defaultFormatter": "vscode.json-language-features"
+    },
+    "cSpell.userWords": [
+        "workstreams"
+    ],
+    "explorer.confirmDelete": false,
+    "explorer.confirmPasteNative": false
+}

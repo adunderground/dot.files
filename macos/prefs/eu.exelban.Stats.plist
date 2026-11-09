@@ -108,28 +108,15 @@
 	<key>LaunchAtLoginNext</key>
 	<true/>
 	<key>NSStatusItem Preferred Position Battery</key>
-	<real>239</real>
+	<real>239.0</real>
 	<key>NSStatusItem Preferred Position CPU_mini</key>
-	<real>406</real>
+	<real>406.0</real>
 	<key>NSStatusItem Preferred Position Clock_sensors</key>
-	<real>86</real>
+	<real>86.0</real>
 	<key>NSStatusItem Preferred Position Network_speed</key>
-	<real>500</real>
+	<real>500.0</real>
 	<key>NSStatusItem Preferred Position RAM_mini</key>
-	<real>453</real>
-	<key>NSToolbar Configuration eu.exelban.Stats.Settings.Toolbar</key>
-	<dict>
-		<key>TB Display Mode</key>
-		<integer>1</integer>
-		<key>TB Icon Size Mode</key>
-		<integer>1</integer>
-		<key>TB Is Shown</key>
-		<true/>
-		<key>TB Size Mode</key>
-		<integer>1</integer>
-	</dict>
-	<key>NSWindow Frame eu.exelban.Stats.Settings.WindowFrame</key>
-	<string>-1326 272 898 480 -1920 0 1920 1050 </string>
+	<real>453.0</real>
 	<key>Network_label_position</key>
 	<integer>1</integer>
 	<key>Network_networkChart_position</key>

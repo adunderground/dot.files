@@ -3,9 +3,9 @@
 <plist version="1.0">
 <dict>
 	<key>NSStatusItem Preferred Position hiddenbar_expandcollapse</key>
-	<real>727</real>
+	<real>727.0</real>
 	<key>NSStatusItem Preferred Position hiddenbar_separate</key>
-	<real>799</real>
+	<real>799.0</real>
 	<key>isAutoStart</key>
 	<true/>
 	<key>isShowPreferences</key>

@@ -3,13 +3,7 @@
 <plist version="1.0">
 <dict>
 	<key>NSStatusItem Preferred Position Item-0</key>
-	<real>2709</real>
-	<key>SUEnableAutomaticChecks</key>
-	<false/>
-	<key>SUHasLaunchedBefore</key>
-	<true/>
-	<key>SULastCheckTime</key>
-	<date>2026-05-26T17:17:08Z</date>
+	<real>2709.0</real>
 	<key>allowAnyShortcut</key>
 	<true/>
 	<key>bottomHalf</key>
