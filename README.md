@@ -10,7 +10,7 @@ Mac setup for a fresh machine. Hand **[SETUP.md](SETUP.md)** to an agent.
 | `Brewfile` | CLI tools and apps (`brew bundle`) |
 | `home/` | `.bash_profile`, `.profile`, `.gitconfig` |
 | `bin/` | personal scripts → `~/.local/bin` |
-| `macos/` | app prefs (Rectangle, Stats, Itsycal, AltTab, Hidden Bar) |
+| `macos/` | app prefs (iTerm2, Rectangle, Stats, Itsycal, AltTab, Hidden Bar) |
 | `ad-tone/` | writing-voice guide |
 
 Secrets are never committed; `.bash_profile` sources `~/.secrets`.

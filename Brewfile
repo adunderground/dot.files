@@ -34,6 +34,7 @@ cask "hiddenbar"
 
 # terminals / editors
 cask "iterm2"
+cask "font-anonymous-pro"   # iTerm profile font
 cask "visual-studio-code"
 cask "cursor"
 cask "intellij-idea"

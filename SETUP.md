@@ -95,14 +95,17 @@ back, transcripts and memory are still intact in `~/.claude/projects`.
 
 ## 5. App preferences
 
-Quit each app first, then:
+Quit each app first, **including iTerm2** — it rewrites its prefs on quit, so run this
+from Terminal.app, not iTerm:
 
 ```bash
 cd ~/adev/dot.files/macos/prefs
 for f in *.plist; do defaults import "${f%.plist}" "$f"; done
 ```
 
-Covers Rectangle, Stats, Itsycal, AltTab, Hidden Bar. Then ask Arkady to:
+Covers iTerm2 (profile, Anonymous Pro 16 font, colors, window size, keys), Rectangle,
+Stats, Itsycal, AltTab, Hidden Bar. The font comes from the Brewfile — if iTerm shows
+Monaco, `brew install --cask font-anonymous-pro` and relaunch iTerm. Then ask Arkady to:
 - Raycast: Settings → Advanced → **Import** the `.rayconfig` from OneDrive.
 - Grant Accessibility / Screen Recording to Rectangle, Raycast, AltTab, Stats
   (System Settings → Privacy & Security). You cannot click these for him.
