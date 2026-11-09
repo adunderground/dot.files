@@ -13,10 +13,11 @@ This repo is **public**. Never commit secrets, tokens, or WorkBoard-internal fil
 
 Unpushed branches and stashes are intentionally abandoned — don't try to save them.
 
-1. `./backup.sh` → writes `OneDrive-WorkBoard/mac-backup/private.tgz` and `~/.secrets`.
+1. Quit the Claude desktop app, then from Terminal: `./backup.sh` → writes
+   `OneDrive-WorkBoard/mac-backup/{private,claude-history}.tgz` and `~/.secrets`.
 2. Raycast → Settings → Advanced → **Export** → save into the same OneDrive folder.
 3. Commit and push this repo.
-4. Confirm OneDrive shows `private.tgz` synced (cloud icon, not "uploading").
+4. Confirm OneDrive shows both `.tgz` files synced (cloud icon, not "uploading").
 
 ---
 
@@ -63,7 +64,7 @@ Secrets (JWT keys, tokens) also exist in Arkady's own encrypted cloud file. If
 `private.tgz` is missing or stale, ask him for the `~/.secrets` contents from there.
 
 This restores `~/.secrets`, `~/.ssh`, `~/.npmrc`, `~/.claude/{CLAUDE.md,settings.json,
-commands,skills,bin,projects/*/memory}`, `~/.agents`, herdr/iTerm hook config, and
+commands,skills,bin}`, `~/.agents`, herdr/iTerm hook config, and
 `~/adev/.foreman` plus loose files in `~/adev`. Then:
 
 ```bash
@@ -71,8 +72,26 @@ ln -sfn ~/adev/.foreman ~/Code/plans 2>/dev/null || { mkdir -p ~/Code && ln -sfn
 ln -sf ~/.claude/skills/pull-wobo-repos/pull-wobo-repos.sh ~/.local/bin/pull-wobo-repos
 ```
 
-Claude memory dirs are keyed by path (`-Users-arkady-dolina-adev-ai-agents`). If the
-username changed, rename those folders to match the new `$HOME`.
+### Claude history
+
+Install the Claude desktop app and sign in, then **quit it** (Cmd-Q) before the Code tab
+creates fresh state. Restore and relaunch:
+
+```bash
+tar -xzf ~/Library/CloudStorage/OneDrive-WorkBoard/mac-backup/claude-history.tgz -C ~
+```
+
+Brings back every Code session transcript, Claude memory (`~/.claude/projects/*/memory`),
+prompt history, and the Code-tab sidebar with its pins. Check: the sidebar shows the
+pinned sessions, and `claude --resume` inside `~/adev/ai-agents` lists old sessions.
+
+Everything here is keyed by absolute path (`/Users/arkady.dolina/adev/...`). It only
+works unchanged if the username is still `arkady.dolina` and repos are back under
+`~/adev` (step 7). If the username changed, stop and tell Arkady — the folder names in
+`~/.claude/projects` and the paths inside the session files both need rewriting.
+Sessions that lived in `*-worktrees` folders are readable but resume into a missing dir.
+The sidebar restore copies app internals, not an official export: if it doesn't come
+back, transcripts and memory are still intact in `~/.claude/projects`.
 
 ## 5. App preferences
 
