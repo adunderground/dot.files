@@ -20,7 +20,6 @@ tar -czf "$DEST/private.tgz" \
   "Library/Application Support/obs-studio/basic" "Library/Application Support/obs-studio/global.ini" \
   Library/Preferences/com.lwouis.alt-tab-macos.license.plist \
   adev/.foreman adev/skills-lock.json adev/bash_profile.sh \
-  adev/Tiltfile adev/tilt-agents-runtime.override.yaml adev/vnextwobo-mongo.override.yml \
   adev/Coreai4387ResetCommand.php adev/pros-cons.txt adev/docs \
   2> >(grep -v 'Removing leading' >&2) || true
 
