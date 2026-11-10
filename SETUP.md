@@ -28,7 +28,7 @@ Unpushed branches and stashes are intentionally abandoned — don't try to save 
 2. `wobo-onboard` in Terminal — sign in to Microsoft/GitHub/npm when asked, then leave it
    ~1h. It installs the dev stack (OrbStack, k8s, tilt, az, …). Guide:
    https://github.com/Workboard/wobo-cli/blob/main/localdev/DEVELOPER-GUIDE.md
-3. From **Company Portal**: Slack, Zoom, Office, OneDrive, Teams, Chrome, Edge, StrongDM,
+3. From **Company Portal**: Slack, Office, OneDrive, Teams, Chrome, Edge, StrongDM,
    Defender. Sign in to StrongDM and connect `dt-westus-litellm` (127.0.0.1:10133).
 
 Do not start step 2 below until `wobo-onboard` finishes — it owns Homebrew's dev packages.
@@ -38,10 +38,13 @@ Do not start step 2 below until `wobo-onboard` finishes — it owns Homebrew's d
 ```bash
 command -v brew || /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 mkdir -p ~/adev && git clone https://github.com/adunderground/dot.files.git ~/adev/dot.files
+brew trust oven-sh/bun   # newer brew refuses third-party taps until trusted
 brew bundle --file ~/adev/dot.files/Brewfile
 ```
 
-Not in brew, install by hand: Claude desktop (claude.ai/download), WorkBoardAI, Orca, LidRun.
+`cask "github"` fails (needs sudo) when Company Portal already installed GitHub Desktop — ignore it.
+
+Not in brew, install by hand: Claude desktop (claude.ai/download), WorkBoardAI, LidRun.
 
 ## 3. Shell + git
 
@@ -49,7 +52,9 @@ Not in brew, install by hand: Claude desktop (claude.ai/download), WorkBoardAI, 
 cd ~/adev/dot.files
 cp home/.bash_profile home/.profile home/.gitconfig ~/
 mkdir -p ~/.local/bin && cp bin/* ~/.local/bin/
-chsh -s /bin/bash   # login shell is bash, not zsh
+# login shell is Homebrew bash 5: /bin/bash 3.2 loses history with .bash_profile's PROMPT_COMMAND
+grep -qx /opt/homebrew/bin/bash /etc/shells || echo /opt/homebrew/bin/bash | sudo tee -a /etc/shells
+chsh -s /opt/homebrew/bin/bash
 fnm install 22 && fnm default 22
 curl -LsSf https://astral.sh/uv/install.sh | sh   # creates ~/.local/bin/env, sourced by .profile
 ```
@@ -134,7 +139,7 @@ The Anonymous Pro font comes from the Brewfile; if iTerm shows Monaco,
 `brew install --cask font-anonymous-pro` and relaunch iTerm.
 
 Not saved (re-sync by signing in): Chrome, Firefox, Slack, Teams, Outlook, Spotify,
-Zoom, Postman, Obsidian (vault is the `AD_obsidian` repo, config in its `.obsidian/`).
+Postman, Obsidian (vault is the `AD_obsidian` repo, config in its `.obsidian/`).
 Signal Desktop has to be re-linked from the phone; choose to transfer message history.
 IntelliJ and pgAdmin/MySQL Workbench had no custom setup worth saving.
 
@@ -148,7 +153,7 @@ Then ask Arkady to:
 
 ```bash
 npm i -g @anthropic-ai/claude-code @playwright/cli
-uv tool install git+https://github.com/NVIDIA/skillspector.git
+uv tool install --python 3.12 git+https://github.com/NVIDIA/skillspector.git   # yara-python has no wheel for newest Python
 curl https://cursor.com/install -fsS | bash          # cursor-agent
 gh auth login
 ```
@@ -159,7 +164,10 @@ gh auth login
 - Claude plugins: open `claude`, run `/plugin` — marketplaces in the restored
   `settings.json` re-download on first launch. `wobo-marketplace` points at
   `~/adev/wobo-marketplace`, so clone it first (step 7).
-- Skills from `~/adev/skills-lock.json` (caveman etc.): `npx skills install` from `~/adev`.
+  Do this only after the Claude history restore (step 4): until then `claude-plugins-official`
+  plugins (playwright, mattpocock-skills) report "not found".
+- Skills from `~/adev/skills-lock.json` (caveman etc.): from `~/adev`,
+  `npx skills experimental_install` (`--frozen-lockfile` refuses if upstream changed).
 
 ## 7. Repos
 

@@ -8,7 +8,7 @@ brew "coreutils"
 brew "vcprompt"
 brew "fortune"
 brew "cowsay"
-brew "tldr"
+brew "tlrc"          # official tldr client (formula "tldr" was removed)
 brew "jq"
 brew "fnm"
 brew "gh"
@@ -40,7 +40,7 @@ cask "cursor"
 cask "intellij-idea"
 
 # dev apps
-cask "github"
+cask "github"         # skip if Company Portal already installed GitHub Desktop
 cask "postman"
 cask "dbeaver-community"
 cask "mysqlworkbench"
