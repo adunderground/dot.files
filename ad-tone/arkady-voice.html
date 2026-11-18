@@ -1,0 +1,225 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Arkady's Work Voice</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700&family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&family=JetBrains+Mono:wght@400;600&display=swap">
+<style>
+/* Layout: single reading column, Slack-message quotes as evidence chips, a dated timeline for evolution */
+:root{
+  --bg:#f6f7f8; --surface:#ffffff; --fg:#1b2127; --muted:#5b6670; --line:#dde2e6;
+  --accent:#0d6e6e; --accent-soft:#e1f0ef; --warn:#9a5b00; --warn-soft:#fbf0dd;
+  --display:"Bricolage Grotesque",system-ui,sans-serif;
+  --body:"Atkinson Hyperlegible",system-ui,sans-serif;
+  --mono:"JetBrains Mono",ui-monospace,Menlo,monospace;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#12171b; --surface:#1a2127; --fg:#e6eaed; --muted:#98a4ae; --line:#2c353c;
+  --accent:#5cc4bf; --accent-soft:#163331; --warn:#f0b35a; --warn-soft:#3a2c14; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#12171b; --surface:#1a2127; --fg:#e6eaed; --muted:#98a4ae; --line:#2c353c;
+  --accent:#5cc4bf; --accent-soft:#163331; --warn:#f0b35a; --warn-soft:#3a2c14; color-scheme:dark}
+body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.6 var(--body)}
+.wrap{max-width:760px;margin:0 auto;padding-block:40px 80px;
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+h1,h2,h3{font-family:var(--display);text-wrap:balance;line-height:1.15;margin:0}
+h1{font-size:2.4rem;font-weight:700}
+h2{font-size:1.5rem;font-weight:700;margin-top:56px;padding-top:20px;border-top:1px solid var(--line)}
+h3{font-size:1.1rem;font-weight:500;margin-top:24px}
+p,li{max-width:65ch}
+.eyebrow{font:600 .72rem/1 var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--accent)}
+.lede{font-size:1.15rem;color:var(--muted);margin-top:12px}
+.meta{font:.8rem var(--mono);color:var(--muted);margin-top:16px}
+q,.msg{font-family:var(--mono);font-size:.84rem;quotes:none}
+.msg{display:block;background:var(--surface);border:1px solid var(--line);border-radius:6px;padding:8px 12px;margin:6px 0;white-space:pre-wrap;overflow-wrap:anywhere}
+.msg small{display:block;color:var(--muted);font-size:.72rem;margin-top:2px}
+.glance{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px;margin-top:24px}
+.glance div{background:var(--accent-soft);border-radius:8px;padding:14px}
+.glance b{display:block;font-family:var(--display);font-size:1.05rem}
+.glance span{color:var(--muted);font-size:.9rem}
+.timeline{list-style:none;padding:0;margin:20px 0 0;display:grid;gap:22px}
+.timeline li{display:grid;grid-template-columns:110px 1fr;gap:16px}
+.timeline .when{font:600 .78rem var(--mono);color:var(--accent);padding-top:3px}
+.timeline .what{min-width:0}
+@media (max-width:520px){.timeline li{grid-template-columns:1fr;gap:4px}}
+.dodont{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:16px}
+@media (max-width:620px){.dodont{grid-template-columns:1fr}}
+.dodont section{background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:16px;min-width:0}
+.dodont h3{margin:0 0 8px}
+.dodont ul{margin:0;padding-left:18px}
+table{border-collapse:collapse;width:100%;font-size:.9rem}
+.tbl{overflow-x:auto;margin-top:12px}
+th,td{text-align:left;padding:8px 10px;border-bottom:1px solid var(--line);vertical-align:top}
+th{font:600 .72rem var(--mono);text-transform:uppercase;letter-spacing:.06em;color:var(--muted)}
+td code{font-family:var(--mono);font-size:.82rem}
+.prompt{position:relative;margin-top:16px}
+.prompt pre{background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:16px;overflow-x:auto;white-space:pre-wrap;font:.82rem/1.55 var(--mono);margin:0}
+.prompt button{position:absolute;top:10px;right:10px;font:600 .75rem var(--mono);background:var(--accent);color:var(--bg);border:0;border-radius:5px;padding:6px 10px;cursor:pointer}
+.prompt button:focus-visible{outline:2px solid var(--fg);outline-offset:2px}
+.note{background:var(--warn-soft);border-left:3px solid var(--warn);padding:12px 14px;border-radius:4px;font-size:.92rem;margin-top:16px}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="eyebrow">Communication guide · WorkBoard Slack</div>
+  <h1>How to talk to Arkady Dolina</h1>
+  <p class="lede">Software engineer on the Ducks / ai-agents side of WorkBoard. Friendly by default and precise about the work. He states what he understood, asks the open question, and moves the work along.</p>
+  <p class="meta">Source: ~200 of Arkady's own Slack messages (DMs, group DMs, private and public channels), sampled across every month from his first day, 2026-05-26, to 2026-11-03.</p>
+
+  <div class="glance">
+    <div><b>Warm, then specific</b><span>A greeting and a "thanks", then the exact ask, PR link or number.</span></div>
+    <div><b>Confirms understanding</b><span>Restates the spec ("So my current understanding…") before he builds anything.</span></div>
+    <div><b>Owns the outcome</b><span>Follows up, tests on prod, reports "both landed".</span></div>
+    <div><b>Skeptical of AI output</b><span>Uses Claude heavily and checks it by hand.</span></div>
+  </div>
+
+  <h2>Signature traits</h2>
+
+  <h3>1. A friendly opener, then straight to the point</h3>
+  <p>Most messages open with a name and a pleasantry ("Hi Leila", "hope all is well", "Good morning Josh"), and the next line is the concrete ask. He's polite without filler, and when the context is shared he drops the greeting and uses fragments.</p>
+  <span class="msg">Hey Josh hope all is well – will you have a couple of minutes to review these today?<small>DM · Jul 2026</small></span>
+  <span class="msg">trying now<small>DM · Jul 2026, mid-debug</small></span>
+
+  <h3>2. He paraphrases the spec back and numbers the options</h3>
+  <p>His most distinctive habit. When requirements are fuzzy he doesn't guess. He restates what he understood as a numbered list and asks which option is right, sometimes marking one "(Recommended)".</p>
+  <span class="msg">So my current understanding– in the artifact we should show:
+1. workboard meetings
+2. meetings from 3rd party calendar (outlook/google) the user has connected
+Does that sound right?<small>#fy27q2-artifact-this-week · Jul 2026</small></span>
+  <span class="msg">mainly 3 open blocking questions:
+• Who counts as a manager?
+• What promotes or demotes someone?
+• What happens to scheduled work when someone is demoted?<small>#q3-fy27-agents-for-everyone · Sep 2026</small></span>
+
+  <h3>3. Numbers over adjectives</h3>
+  <p>Layout debates get pixel math, deploys get run links per region, and bugs get the browsers he tested.</p>
+  <span class="msg">The current math opens the artifact at 732px on a 14" Macbook (1512px vw). In order to see all 5 days expanded we want to be at ~860px which is ~70%.<small>#fy27q2-artifact-this-week · Aug 2026</small></span>
+
+  <h3>4. He's open about the cost he's asking for</h3>
+  <p>He says when a PR is big, why it got that way, and what he did to make reviewing it easier. He labels small PRs as small ("lean", "tiny", "css only") so reviewers can triage.</p>
+  <span class="msg">It's a massive an I will try my best to avoid it but for this project and the timeline I had to compress some tickets into single branch… I made sure to make the description extra nice and easier to follow.<small>DM · Jul 2026</small></span>
+
+  <h3>5. Calm, reasoned pushback</h3>
+  <p>He disagrees with "I don't think…" and a reason, then offers an alternative. On process he gives a rule of thumb, owns his part, and closes on alignment rather than winning.</p>
+  <span class="msg">I don't think it makes sense to making save dependent on "try your instructions in chat"<small>#agent-prs · Oct 2026</small></span>
+  <span class="msg">I agree – I could've and should've communicated better.<small>DM · Oct 2026</small></span>
+
+  <h3>6. Uses AI heavily and trusts it little</h3>
+  <p>Claude is part of how he works: he shares plans as Claude artifacts and says when an idea came from brainstorming with it. He's also blunt when it gets things wrong, and he separates what Claude said from what he checked himself.</p>
+  <span class="msg">Claude marked a couple of failing things but I checked them manually in qa and they were good.<small>DM · Sep 2026</small></span>
+  <span class="msg">never trust claude...<small>DM · Oct 2026</small></span>
+
+  <h2>Curiosities &amp; language fingerprints</h2>
+  <div class="tbl"><table>
+    <thead><tr><th>Pattern</th><th>Examples</th><th>What it signals</th></tr></thead>
+    <tbody>
+      <tr><td>En dash as the main connector</td><td><code>Hi Viktoria – yes – I'm working on it</code></td><td>The single strongest marker. He uses " – " where others use a comma, colon or period.</td></tr>
+      <tr><td>Shorthand</td><td><code>lmk · atm · b/w · aka · tbh · hf</code></td><td>Speed and comfort, mostly in DMs.</td></tr>
+      <tr><td>Emoji as tone markers</td><td><code>:sweat_smile: :thinking_face: :100: :partyparrot: :eyes:</code></td><td>Softens a confession, marks confusion, or celebrates. It never replaces content.</td></tr>
+      <tr><td>Ukrainian greetings with Ukrainian colleagues</td><td><code>Privit · Dyakuy</code></td><td>Builds rapport by meeting people in their own language.</td></tr>
+      <tr><td>Gentle nudges</td><td><code>gently reminding you · hope I'm not bothering</code></td><td>Persistent about follow-up but careful not to pressure.</td></tr>
+      <tr><td>Asks about the small details</td><td><code>should there be a period or exclamation point at the end?</code></td><td>Cares about product copy down to the punctuation.</td></tr>
+      <tr><td>Typos when moving fast</td><td><code>brining · yeilds · whenver</code></td><td>Speed over polish in chat. A model imitating him should not copy these.</td></tr>
+      <tr><td>Lowercase starts in quick threads</td><td><code>looks like rithy made some changes</code></td><td>Casual register inside an ongoing thread. Sentence case in channel posts.</td></tr>
+    </tbody>
+  </table></div>
+
+  <h2>How it changed over time</h2>
+  <ol class="timeline">
+    <li><div class="when">May 2026<br>week 1</div><div class="what"><b>Enthusiastic newcomer.</b> Exclamation marks, lots of thanks, a :tada: or two. He asks for orientation and shows curiosity about tools.
+      <span class="msg">Oh that is such a cool feature – always checking my/my peers' node version has been a headache at my previous workplace.</span></div></li>
+    <li><div class="when">Jun</div><div class="what"><b>Spec-clarifier.</b> Writes structured question sets with lettered options and a recommendation. Checks his interpretation with PM and lead before building ("should we check in … one last time to clarify the spec").</div></li>
+    <li><div class="when">Jul</div><div class="what"><b>Delivery and coordination.</b> Deploys to wobo-dev himself and asks before taking shared environments ("Is anyone using wobo-dev?"). Chases reviews to hit a weekly target and debugs out loud in short fragments.</div></li>
+    <li><div class="when">Aug</div><div class="what"><b>Technical author.</b> Longer, architecture-level messages: migration plans, skill-vs-SDK trade-offs, pixel math. Admits misunderstandings openly ("I was confusing skills and claude sdk/sub agents").</div></li>
+    <li><div class="when">Sep</div><div class="what"><b>AI-native, AI-skeptical.</b> Uses Claude artifacts as his main way to share plans and questions ("see here :ty:"). Says outright when Claude was wrong. Asks for more tokens, citing the epic he's on.</div></li>
+    <li><div class="when">Oct</div><div class="what"><b>Process voice.</b> Has opinions on release practice (trunk-based, owning your own deploys), pushes back on product logic in PR threads, and coordinates prod releases across regions with run links. More confident and fewer hedges, but still conciliatory.</div></li>
+    <li><div class="when">Nov</div><div class="what"><b>Crisp status reporter.</b> Updates are short: done / in progress / next.
+      <span class="msg">This week calendar in the main app is finished. I'm finishing up putting together playwright tests for it.</span></div></li>
+  </ol>
+  <p><b>Overall arc:</b> his messages went from deferential and exclamatory to confident and compact. Warmth stayed constant, and so did paraphrasing before building. What shrank: thank-yous per message and hedging. What grew: technical density, opinions on process, and use of artifacts and links instead of prose.</p>
+
+  <h2>How to talk to him</h2>
+  <div class="dodont">
+    <section><h3>Do</h3><ul>
+      <li>Lead with the decision or ask. Context comes second.</li>
+      <li>Give options as a numbered list, with a recommendation.</li>
+      <li>Use numbers: px, %, run links, ticket keys, tags.</li>
+      <li>Say what you verified vs. what you assume.</li>
+      <li>Keep it short. Tables beat paragraphs.</li>
+      <li>Be warm but brief: one "hope you're well" is plenty.</li>
+      <li>Disagree with a reason. He'll engage with it.</li>
+    </ul></section>
+    <section><h3>Don't</h3><ul>
+      <li>Pad with preamble or repeat back what he said.</li>
+      <li>Report AI-generated findings as fact without checking them.</li>
+      <li>Leave a spec ambiguity unasked. He'll ask anyway.</li>
+      <li>Over-apologize or over-hedge.</li>
+      <li>Make him chase status. Close the loop.</li>
+      <li>Be curt or cold. He's consistently courteous and notices when others aren't.</li>
+    </ul></section>
+  </div>
+
+  <h2>Describing his professional tone to an AI</h2>
+  <p>A one-paragraph description to paste anywhere:</p>
+  <div class="prompt"><pre id="desc">Arkady's work tone is warm, collaborative and pragmatic. He opens with a short friendly greeting and gets to a concrete ask in the first sentence. He's precise about scope: he restates requirements back as numbered lists and asks targeted clarifying questions before committing. He backs claims with specifics (pixel widths, run links, PR numbers, which browsers he tested). He's candid about trade-offs and his own mistakes, disagrees calmly with "I don't think…, because…", and follows up persistently but politely ("gently reminding"). Informal in DMs (lowercase, "lmk", "atm", a light emoji), structured in channels. He uses AI tools heavily and is openly skeptical of their output.</pre><button type="button" data-copy="desc">Copy</button></div>
+
+  <h2>Prompt: write like Arkady at work</h2>
+  <div class="prompt"><pre id="prompt">You are writing Slack messages (and short PR / ticket comments) as Arkady Dolina, a software engineer at WorkBoard working on AI agents (Chief of Staff "Luisa", Leadership Coach "Sofia") and the main WorkBoard web app.
+
+VOICE
+- Warm and collaborative, never gushing. One short greeting max ("Hi Josh", "Hey team", "Good morning Leila"), then the ask.
+- Get to the point in the first sentence: the decision needed, the PR to review, the status, or the blocker.
+- Precise and concrete: name PRs, tickets, tags, environments (wobo-dev, wb-qa, prod US/EU), browsers, pixel values, percentages. Prefer a number to an adjective.
+- Confident but not combative. Disagree with "I don't think X makes sense – &lt;reason&gt;. What if we &lt;alternative&gt;?" Own mistakes plainly ("I could've and should've communicated better").
+- Persistent, polite follow-up: "gently reminding you about…", "following up on this – please check again when you have a minute."
+- Candid about cost: say if a PR is big and why. Label small ones as "tiny" or "lean, css only".
+- Treats AI output as a draft: "Claude suggested X, but I checked it manually in QA and…"
+
+STRUCTURE
+- When requirements are unclear, restate your understanding as a numbered list and end with "Does that sound right?" or "Lmk which one".
+- Group open questions as bullets titled e.g. "3 open blocking questions:".
+- Status updates: what's done, what's in progress, what's next. Two or three sentences.
+- Review requests: one line of context plus the link(s), tagging reviewers.
+
+STYLE MARKERS
+- Use spaced en dashes ( – ) as the main connector between clauses.
+- In DMs: lowercase starts are fine, plus shorthand like "lmk", "atm", "b/w", "tbh", "aka".
+- In channels: sentence case, slightly more formal, still brief.
+- Emoji sparingly, as tone markers only: :sweat_smile: (light self-deprecation), :thinking_face: (puzzled), :100: (strong agreement), :thankyou: or :ty:, an occasional :partyparrot: for a win.
+- No corporate filler ("circle back", "synergy", "per my last message"). No long preambles. No sign-offs beyond "Thanks!".
+- Product terms: "WorkBoard" (capital W and B), "Biz Review" (never RBR), "Scorecard", "Objective" / "Key Result" (never "an OKR"), "KPI", "Heatmap".
+
+DON'T
+- Don't invent facts, test results, or approvals. If something isn't verified, say so.
+- Don't reproduce typos. Keep spelling correct.
+- Don't over-thank (one "thanks" per message) or over-apologize.
+
+EXAMPLES OF THE TARGET VOICE
+- "Hi Leila – quick question on the disclaimer ticket. It only mentions Luisa. Should it apply to Sofia and all future agents by default too?"
+- "Hey team, workstreams and server deployment failed for US Prod but passed for EU. Can anyone help? Runs: &lt;links&gt;"
+- "good morning! can you please review these 2 lean PRs: &lt;link&gt; &lt;link&gt;"
+- "I don't think we need this code change – it should already work as expected. Testing the instruction in chat and saving the scheduled run feel like two separate concerns."
+- "Thanks for the review – addressed the raised bug. Please take another look whenever you have time."
+
+Write the message the user asks for in this voice. Keep it as short as the content allows.</pre><button type="button" data-copy="prompt">Copy</button></div>
+
+  <h2>Method &amp; limits</h2>
+  <ul>
+    <li>Slack search, run as Arkady, across public channels, private channels, group DMs and DMs. Messages were sampled per month in time order, plus targeted searches for pushback and AI-tool opinions. This is a representative sample, not a full export.</li>
+    <li>Only Arkady's own messages were analyzed. Other people's messages were read only to understand context.</li>
+    <li>Personal and HR threads (benefits, family) were used only for tone, not quoted.</li>
+  </ul>
+  <div class="note">Hygiene flag: the sample turned up a plaintext access token in a self-DM and a test-account password in a DM. Neither is reproduced here. Revoke the token if it's still active, and share secrets through a vault rather than Slack.</div>
+</div>
+
+<script>
+document.querySelectorAll('[data-copy]').forEach(b=>b.addEventListener('click',()=>{
+  const el=document.getElementById(b.dataset.copy);
+  navigator.clipboard.writeText(el.textContent).then(()=>{b.textContent='Copied';setTimeout(()=>b.textContent='Copy',1500)})
+  .catch(()=>{const r=document.createRange();r.selectNodeContents(el);const s=getSelection();s.removeAllRanges();s.addRange(r);b.textContent='Selected – ⌘C'});
+}));
+</script>
+</body>
+</html>
